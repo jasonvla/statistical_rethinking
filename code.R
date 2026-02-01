@@ -8,5 +8,14 @@ sim_globe <- function( p=0.7, N=9) {
 
 
 # Test simulation on extreme settings!
-print(sim_globe(p=1, N=12))
-print(sum(sim_globe(p=0.5 , N=1e4) == "W") / 1e4)
+
+# print(sim_globe(p=1, N=12))
+# print(sum(sim_globe(p=0.5 , N=1e4) == "W") / 1e4)
+
+sample <- c(sim_globe())
+W <- sum(sample=="W") # number of W observed
+L <- sum(sample=="L") # number of L observed
+p <- c(0, 0.25, 0.5, 0.75, 1) # proportions of globe covered in water
+ways <- sapply(p, function(q) (q*4)^W * ((1-q)*4)^L)
+prob <- ways/sum(ways)
+print(cbind(p, ways, prob))
