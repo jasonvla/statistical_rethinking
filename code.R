@@ -19,3 +19,16 @@ p <- c(0, 0.25, 0.5, 0.75, 1) # proportions of globe covered in water
 ways <- sapply(p, function(q) (q*4)^W * ((1-q)*4)^L)
 prob <- ways/sum(ways)
 print(cbind(p, ways, prob))
+
+# func to simulate weights of individuals from height
+sim_weight <- function(H,b,sd) {
+	U <- rnorm ( length(H), 0, sd)
+	W <- b*H + U
+	return(W)
+}
+
+# add synthetic data 
+H <- runif(200, min=130, max=170)
+W <- sim_weight(H, b=0.5, sd=5)
+quartz()
+plot(W ~ H, col=2, lwd=3)
