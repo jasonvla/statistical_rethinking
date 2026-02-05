@@ -30,5 +30,15 @@ sim_weight <- function(H,b,sd) {
 # add synthetic data 
 H <- runif(200, min=130, max=170)
 W <- sim_weight(H, b=0.5, sd=5)
-quartz()
+#quartz()
 plot(W ~ H, col=2, lwd=3)
+
+# prior predictive distribution
+
+n <- 1e3
+a <- rnorm(n,0,10) # slope
+b <- runif(n,0,1) # in most cases; in general weight is a proportion of height
+quartz()
+plot(NULL, xlim=c(130,170), ylim=c(50,90),
+    xlab="height (cm)", ylab="weight (kg)")
+for (j in 1:50) abline(a=a[j], b=b[j], lwd=2, col=2)
